@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
+	"runtime"
 )
 
 var echoText = os.Getenv("ECHO_TEXT")
+var info = fmt.Sprintf("OS: %s\nArchitecture: %s\n", runtime.GOOS, runtime.GOARCH)
 
 func main() {
 	http.HandleFunc("/echo", httpEcho)
@@ -13,5 +16,5 @@ func main() {
 }
 
 func httpEcho(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(echoText))
+	w.Write([]byte(info + echoText))
 }
