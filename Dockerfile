@@ -7,7 +7,10 @@ RUN CGO_ENABLED=0 go build \
     -o /latest \
     main.go
 
-FROM alpine
+FROM alpine:3.16.0
+
+RUN apk add bash
+RUN apk add curl
 RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
     && apk del tzdata
